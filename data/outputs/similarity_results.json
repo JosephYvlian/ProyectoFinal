@@ -1,0 +1,110 @@
+{
+  "n_texts": 4,
+  "n_comparisons": 6,
+  "titles": [
+    "Smart Mine: The Role of Artificial Intelligence in Modern Coal Extraction",
+    "Opportunities and Challenges of Generative Artificial Intelligence in Facilitating Learning for Chinese University Students",
+    "Artificial Intelligence and ChatGPT in Optimal Management of Battery Energy Storage Systems: Advantages and Challenges",
+    "Design and Implementation of CDIO Teaching Empowered by Generative Artificial Intelligence: Taking the Course of “Post-Production Visual Effects” as an Example"
+  ],
+  "similarities": {
+    "Levenshtein": [
+      0.3125,
+      0.23058252427184467,
+      0.26249999999999996,
+      0.26941747572815533,
+      0.17829457364341084,
+      0.25970873786407767
+    ],
+    "Jaccard": [
+      0.09333333333333334,
+      0.09411764705882353,
+      0.08,
+      0.05333333333333334,
+      0.11666666666666667,
+      0.0684931506849315
+    ],
+    "Cosine_TFIDF": [
+      0.1721378583285858,
+      0.2944579927876707,
+      0.20101876143544606,
+      0.1180467344136076,
+      0.14971749879797897,
+      0.15332241192258775
+    ],
+    "Dice": [
+      0.17073170731707318,
+      0.17204301075268819,
+      0.14814814814814814,
+      0.10126582278481013,
+      0.208955223880597,
+      0.1282051282051282
+    ],
+    "BERT": [
+      0.8287591338157654,
+      0.8316459059715271,
+      0.8243795037269592,
+      0.7875025272369385,
+      0.8422644734382629,
+      0.767673134803772
+    ],
+    "SentenceBERT": [
+      0.27870917320251465,
+      0.15396636724472046,
+      0.2834479808807373,
+      0.02912546508014202,
+      0.3968307375907898,
+      -0.013256631791591644
+    ]
+  },
+  "statistics": {
+    "Levenshtein": {
+      "mean": 0.2521672185845814,
+      "std": 0.04087444896436012,
+      "min": 0.17829457364341084,
+      "max": 0.3125,
+      "median": 0.2611043689320388,
+      "count": 6.0
+    },
+    "Jaccard": {
+      "mean": 0.08432402184618142,
+      "std": 0.02021907467142933,
+      "min": 0.05333333333333334,
+      "max": 0.11666666666666667,
+      "median": 0.08666666666666667,
+      "count": 6.0
+    },
+    "Cosine_TFIDF": {
+      "mean": 0.18145020961431282,
+      "std": 0.05635977550651403,
+      "min": 0.1180467344136076,
+      "max": 0.2944579927876707,
+      "median": 0.16273013512558676,
+      "count": 6.0
+    },
+    "Dice": {
+      "mean": 0.15489150684807415,
+      "std": 0.03440281291635014,
+      "min": 0.10126582278481013,
+      "max": 0.208955223880597,
+      "median": 0.15943992773261068,
+      "count": 6.0
+    },
+    "BERT": {
+      "mean": 0.8137041131655375,
+      "std": 0.026719511574046714,
+      "min": 0.767673134803772,
+      "max": 0.8422644734382629,
+      "median": 0.8265693187713623,
+      "count": 6.0
+    },
+    "SentenceBERT": {
+      "mean": 0.1881371820345521,
+      "std": 0.14597503956222663,
+      "min": -0.013256631791591644,
+      "max": 0.3968307375907898,
+      "median": 0.21633777022361755,
+      "count": 6.0
+    }
+  }
+}

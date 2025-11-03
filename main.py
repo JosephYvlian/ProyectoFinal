@@ -126,6 +126,8 @@ def ejecutar_req1():
         # Actualizar estado
         state.df = unified_df
         state.duplicates_df = duplicates_df
+        print("\n" + "="*70)
+        print("✓✓✓ REQUERIMIENTO 1 COMPLETADO ✓✓✓")
     
     except Exception as e:
         print(f"\nERROR: {str(e)}")
@@ -138,6 +140,7 @@ def ejecutar_req1():
 def ejecutar_req2():
     """
     Requerimiento 2: Análisis de Similitud Textual
+    6 algoritmos: 4 clásicos + 2 IA
     """
     print("\n" + "="*70)
     print("REQUERIMIENTO 2: ANÁLISIS DE SIMILITUD TEXTUAL")
@@ -145,133 +148,227 @@ def ejecutar_req2():
     
     # Verificar que hay datos
     if not state.has_data():
-        print("\nERROR: No hay datos cargados.")
-        print("Por favor ejecute el Requerimiento 1 primero.")
-        return
-    
-    print(f"\nDatos disponibles: {len(state.df)} artículos")
-    print("\nEste requerimiento permite comparar abstracts de artículos usando 6 algoritmos:")
-    print("  1. Levenshtein (distancia de edición)")
-    print("  2. Jaccard (similitud de conjuntos)")
-    print("  3. Cosine con TF-IDF")
-    print("  4. Jaccard con N-gramas")
-    print("  5. BERT (embeddings)")
-    print("  6. Sentence-BERT")
-    
-    # Selección de artículos
-    print("\n" + "-"*70)
-    n_articles = input("¿Cuántos artículos desea comparar? (2-10, Enter=3): ").strip()
-    n_articles = int(n_articles) if n_articles.isdigit() else 3
-    n_articles = max(2, min(10, n_articles))
-    
-    print(f"\nSeleccionando {n_articles} artículos con abstract...")
-    
-    # Filtrar artículos con abstract
-    df_with_abstract = state.df[state.df['abstract'].notna() & (state.df['abstract'].str.len() > 50)]
-    
-    if len(df_with_abstract) < n_articles:
-        print(f"⚠ Solo hay {len(df_with_abstract)} artículos con abstract válido")
-        n_articles = len(df_with_abstract)
-    
-    # Selección aleatoria
-    selected = df_with_abstract.sample(n_articles, random_state=42)
-    
-    print("\nArtículos seleccionados:")
-    for i, row in enumerate(selected.itertuples(), 1):
-        print(f"{i}. {row.title[:70]}...")
-    
-    print("\n[Ejecutando análisis de similitud...]")
-    print("Nota: Este proceso puede tardar varios minutos con modelos IA...")
-    
-    try:
-        # Aquí iría el análisis real
-        # Por ahora, simulación
-        abstracts = selected['abstract'].tolist()
-        
-        print("\n✓ Calculando similitudes...")
-        print("  [1/6] Levenshtein... ✓")
-        print("  [2/6] Jaccard... ✓")
-        print("  [3/6] Cosine TF-IDF... ✓")
-        print("  [4/6] Jaccard N-gramas... ✓")
-        print("  [5/6] BERT... ⏳ (puede tardar)")
-        print("  [6/6] Sentence-BERT... ✓")
-        
-        print("\n✓ Análisis completado")
-        print("\nResultados guardados en: data/outputs/similarity_results.csv")
-        
-        print("\n" + "="*70)
-        print("✓✓✓ REQUERIMIENTO 2 COMPLETADO ✓✓✓")
-        print("="*70)
-        
-        # Aquí mostrarías una tabla resumen
-        print("\nRESUMEN DE SIMILITUDES (ejemplo):")
-        print("-"*70)
-        print(f"{'Par':<20} {'Levenshtein':<12} {'Jaccard':<10} {'Cosine':<10} {'BERT':<10}")
-        print("-"*70)
-        print(f"{'Art 1 vs Art 2':<20} {0.234:<12.3f} {0.456:<10.3f} {0.678:<10.3f} {0.812:<10.3f}")
-        print(f"{'Art 1 vs Art 3':<20} {0.123:<12.3f} {0.345:<10.3f} {0.567:<10.3f} {0.734:<10.3f}")
-        print("-"*70)
-        
-    except Exception as e:
-        print(f"\n❌ ERROR: {str(e)}")
-        logger.error(f"Error en Req 2: {e}")
-
-
-# ========== REQUERIMIENTO 3 ==========
-def ejecutar_req3():
-    """
-    Requerimiento 3: Análisis de Frecuencias
-    """
-    print("\n" + "="*70)
-    print("REQUERIMIENTO 3: ANÁLISIS DE FRECUENCIAS")
-    print("="*70)
-    
-    if not state.has_data():
         print("\n❌ ERROR: No hay datos cargados.")
         print("Por favor ejecute el Requerimiento 1 primero.")
         return
     
-    print(f"\nAnalizando {len(state.df)} abstracts...")
+    print(f"\nDatos disponibles: {len(state.df)} artículos")
     
-    print("\n[1/3] Calculando frecuencias de palabras predefinidas...")
-    predefined_words = [
-        "Generative models", "Prompting", "Machine learning",
-        "Multimodality", "Fine-tuning", "Training data",
-        "Algorithmic bias", "Explainability", "Transparency",
-        "Ethics", "Privacy", "Personalization",
-        "Human-AI interaction", "AI literacy", "Co-creation"
+    # Filtrar artículos con abstract
+    df_with_abstract = state.df[
+        state.df['abstract'].notna() & 
+        (state.df['abstract'].str.len() > 50)
     ]
     
-    print(f"  Palabras predefinidas: {len(predefined_words)}")
-    print("  ✓ Conteo completado")
+    if len(df_with_abstract) == 0:
+        print("\n❌ ERROR: No hay artículos con abstract válido.")
+        print("Los datos cargados no tienen abstracts suficientemente largos.")
+        return
     
-    print("\n[2/3] Extrayendo top 15 nuevas palabras clave...")
-    print("  ✓ Palabras extraídas")
+    print(f"Artículos con abstract válido: {len(df_with_abstract)}")
     
-    print("\n[3/3] Evaluando precisión de nuevas palabras...")
-    print("  ✓ Precisión calculada: 0.756")
+    # Información sobre algoritmos
+    print("\n" + "-"*70)
+    print("ALGORITMOS DISPONIBLES:")
+    print("-"*70)
+    print("\n📊 Clásicos:")
+    print("  [1] Levenshtein - Distancia de edición")
+    print("  [2] Jaccard - Similitud de conjuntos")
+    print("  [3] Cosine + TF-IDF - Vectorización estadística")
+    print("  [4] Dice - Coeficiente de Sørensen-Dice")
+    print("\n🤖 Inteligencia Artificial:")
+    print("  [5] BERT - Embeddings con Transformers")
+    print("  [6] Sentence-BERT - Optimizado para similitud")
+    print()
     
+    # Preguntar configuración
+    n_articles_str = input("¿Cuántos artículos comparar? (n): ").strip()
+    n_articles = int(n_articles_str)
+    n_articles = max(2, min(20, n_articles))
+    
+    if n_articles > len(df_with_abstract):
+        n_articles = len(df_with_abstract)
+        print(f"Ajustado a {n_articles} (máximo disponible)")
+    
+    # Preguntar modo de selección
+    print("\n" + "-"*70)
+    print("MODO DE SELECCIÓN:")
+    print("-"*70)
+    print("[1] Aleatorio (rápido)")
+    print("[2] Manual (seleccionar de una lista)")
+    print()
+    
+    modo = input("Seleccione modo (1/2): ").strip()
+    
+    # Preguntar si usar todos los algoritmos
+    usar_todos = input("\n¿Usar TODOS los algoritmos? (s/n): ").strip().lower()
+    
+    algorithms = None
+    if usar_todos != 's':
+        print("\nSeleccione algoritmos (separados por coma, ej: 1,2,5):")
+        seleccion = input("Algoritmos: ").strip()
+        
+        if seleccion:
+            indices = [int(x.strip()) for x in seleccion.split(',') if x.strip().isdigit()]
+            algo_map = {
+                1: 'Levenshtein',
+                2: 'Jaccard',
+                3: 'Cosine_TFIDF',
+                4: 'Dice',
+                5: 'BERT',
+                6: 'SentenceBERT'
+            }
+            algorithms = [algo_map[i] for i in indices if i in algo_map]
+    
+    try:
+        # Importar y ejecutar
+        from R2_Similitud import SimilarityAnalyzer
+        
+        print(f"\n→ Seleccionando {n_articles} artículos aleatoriamente...")
+        
+        # Seleccionar artículos según modo
+        if modo == "2":
+            # MODO MANUAL
+            print("\n" + "="*70)
+            print("SELECCIÓN MANUAL DE ARTÍCULOS")
+            print("="*70)
+            print(f"\nMostrando primeros 20 artículos con abstract:")
+            print("-"*70)
+            
+            # Mostrar lista de artículos
+            display_df = df_with_abstract.head(20).reset_index(drop=True)
+            
+            for idx, row in display_df.iterrows():
+                title_short = row['title'][:60] + "..." if len(row['title']) > 60 else row['title']
+                year = row['year'] if 'year' in row and row['year'] else 'N/A'
+                source = row['source'] if 'source' in row else 'N/A'
+                print(f"[{idx}] {title_short}")
+                print(f"    ({source}, {year})")
+                print()
+            
+            print("-"*70)
+            print(f"\nSeleccione {n_articles} artículos (números separados por coma)")
+            print("Ejemplo: 0,3,7")
+            print()
+            
+            while True:
+                seleccion = input("Artículos: ").strip()
+                
+                try:
+                    indices = [int(x.strip()) for x in seleccion.split(',')]
+                    
+                    # Validar
+                    if len(indices) != n_articles:
+                        print(f"⚠ Debe seleccionar exactamente {n_articles} artículos")
+                        continue
+                    
+                    if any(i < 0 or i >= len(display_df) for i in indices):
+                        print(f"⚠ Índices válidos: 0-{len(display_df)-1}")
+                        continue
+                    
+                    if len(set(indices)) != len(indices):
+                        print("⚠ No puede seleccionar el mismo artículo dos veces")
+                        continue
+                    
+                    # Selección válida
+                    selected = display_df.iloc[indices]
+                    break
+                    
+                except ValueError:
+                    print("⚠ Formato inválido. Use números separados por coma (ej: 0,3,7)")
+            
+            print("\n✓ Artículos seleccionados:")
+            for i, (_, row) in enumerate(selected.iterrows(), 1):
+                print(f"  {i}. {row['title'][:70]}...")
+        
+        else:
+            # MODO ALEATORIO
+            selected = df_with_abstract.sample(n_articles, random_state=42)
+        titles = selected['title'].tolist()
+        abstracts = selected['abstract'].tolist()
+        
+        if modo != "2":
+            print("\nArtículos seleccionados (aleatorio):")
+            for i, title in enumerate(titles, 1):
+                print(f"  {i}. {title[:70]}...")
+        
+        print("\n" + "-"*70)
+        print("Iniciando análisis...")
+        print("-"*70)
+        
+        # Analizar
+        analyzer = SimilarityAnalyzer()
+        results = analyzer.analyze_texts(abstracts, titles, algorithms)
+        
+        # Guardar resultados
+        analyzer.save_results(results)
+        
+        # Mostrar resumen
+        analyzer.print_summary(results)
+        
+        # Crear visualización
+        try:
+            print("\n→ Generando visualización...")
+            analyzer.visualize_results(results, 'data/outputs/similarity_visualization.png')
+            print("✓ Visualización guardada: data/outputs/similarity_visualization.png")
+        except Exception as e:
+            print(f"⚠ No se pudo crear visualización: {e}")
+        
+        # Actualizar estado
+        state.similarity_results = results
+        
+        print("\n" + "="*70)
+        print("✓✓✓ REQUERIMIENTO 2 COMPLETADO ✓✓✓")
+        print("="*70)
+        print("\nResultados guardados en:")
+        print("  • data/outputs/similarity_results.json")
+        print("  • data/outputs/similarity_visualization.png")
+    
+    except Exception as e:
+        print(f"\n❌ ERROR: {str(e)}")
+        logger.error(f"Error en Req 2: {e}")
+        import traceback
+        traceback.print_exc()
+
+# =====================================================
+# REQUERIMIENTO 3 (ACTUALIZADO)
+# =====================================================
+def ejecutar_req3():
+    """
+    Requerimiento 3: Frecuencia de Palabras + Descubrimiento Semántico
+    """
     print("\n" + "="*70)
-    print("✓✓✓ REQUERIMIENTO 3 COMPLETADO ✓✓✓")
+    print("REQUERIMIENTO 3: ANÁLISIS DE FRECUENCIAS Y NUEVAS PALABRAS")
     print("="*70)
-    
-    print("\nRESUMEN DE FRECUENCIAS:")
-    print("-"*70)
-    print(f"{'Palabra Predefinida':<30} {'Frecuencia':>10}")
-    print("-"*70)
-    for word in predefined_words[:5]:
-        freq = 23  # Ejemplo
-        print(f"{word:<30} {freq:>10}")
-    print("...")
-    
-    print("\nTOP 15 NUEVAS PALABRAS:")
-    print("-"*70)
-    print(f"{'Palabra':<30} {'Frecuencia':>10}")
-    print("-"*70)
-    new_words_example = ["neural", "network", "transformer", "attention", "model"]
-    for word in new_words_example:
-        print(f"{word:<30} {45:>10}")
-    print("...")
+
+    if not state.has_data():
+        print("\nERROR: No hay datos cargados.")
+        print("Por favor ejecute el Requerimiento 1 primero.")
+        return
+
+    try:
+        from R3_Frecuencias import FrequencyAnalyzer
+
+        analyzer = FrequencyAnalyzer()
+        predefined_df, precision_df = analyzer.analyze_frequencies(state.df)
+
+        state.frequency_results = {
+            "predefined": predefined_df,
+            "precision": precision_df
+        }
+
+        print("\n" + "="*70)
+        print("✓✓✓ REQUERIMIENTO 3 COMPLETADO ✓✓✓")
+        print("="*70)
+        print("\nResultados guardados en:")
+        print("  • data/outputs/frequency_words.csv")
+        print("  • data/outputs/new_words_precision.csv")
+
+    except Exception as e:
+        print(f"\nERROR: {e}")
+        logger.error(f"Error en Req 3: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 # ========== REQUERIMIENTO 4 ==========
