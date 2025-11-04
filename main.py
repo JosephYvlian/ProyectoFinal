@@ -330,9 +330,7 @@ def ejecutar_req2():
         import traceback
         traceback.print_exc()
 
-# =====================================================
-# REQUERIMIENTO 3 (ACTUALIZADO)
-# =====================================================
+# ========== REQUERIMIENTO 3 ==========
 def ejecutar_req3():
     """
     Requerimiento 3: Frecuencia de Palabras + Descubrimiento Semántico
@@ -379,52 +377,27 @@ def ejecutar_req4():
     print("\n" + "="*70)
     print("REQUERIMIENTO 4: CLUSTERING JERÁRQUICO")
     print("="*70)
-    
+
     if not state.has_data():
         print("\n❌ ERROR: No hay datos cargados.")
         print("Por favor ejecute el Requerimiento 1 primero.")
         return
-    
-    print(f"\nDatos disponibles: {len(state.df)} artículos")
-    
-    # Preguntar cuántos abstracts procesar
-    n_samples = input("\n¿Cuántos abstracts procesar? (10-100, Enter=50): ").strip()
-    n_samples = int(n_samples) if n_samples.isdigit() else 50
-    n_samples = min(n_samples, len(state.df))
-    
-    print(f"\nProcesando {n_samples} abstracts con 3 métodos de clustering...")
-    
-    print("\n[1/4] Preprocesamiento de texto...")
-    print("  ✓ Vectorización TF-IDF completada")
-    
-    print("\n[2/4] Aplicando método Single Linkage...")
-    print("  ✓ Clustering completado")
-    print("  ✓ Silhouette Score: 0.234")
-    print("  ✓ Dendrograma guardado → data/outputs/dendrogram_single.png")
-    
-    print("\n[3/4] Aplicando método Complete Linkage...")
-    print("  ✓ Clustering completado")
-    print("  ✓ Silhouette Score: 0.456")
-    print("  ✓ Dendrograma guardado → data/outputs/dendrogram_complete.png")
-    
-    print("\n[4/4] Aplicando método Ward...")
-    print("  ✓ Clustering completado")
-    print("  ✓ Silhouette Score: 0.678")
-    print("  ✓ Dendrograma guardado → data/outputs/dendrogram_ward.png")
-    
-    print("\n" + "="*70)
-    print("✓✓✓ REQUERIMIENTO 4 COMPLETADO ✓✓✓")
-    print("="*70)
-    
-    print("\nCOMPARACIÓN DE MÉTODOS:")
-    print("-"*70)
-    print(f"{'Método':<20} {'Silhouette Score':>20} {'Mejor':>10}")
-    print("-"*70)
-    print(f"{'Single Linkage':<20} {0.234:>20.3f} {'':>10}")
-    print(f"{'Complete Linkage':<20} {0.456:>20.3f} {'':>10}")
-    print(f"{'Ward':<20} {0.678:>20.3f} {'✓✓✓':>10}")
-    print("-"*70)
-    print("\n✓ Método más coherente: WARD (Silhouette Score: 0.678)")
+
+    try:
+        from R4_Clustering import ClusteringAnalyzer
+
+        analyzer = ClusteringAnalyzer()
+        results = analyzer.analyze_clustering(state.df, n_samples=50)
+
+        print("\n" + "="*70)
+        print("✓✓✓ REQUERIMIENTO 4 COMPLETADO ✓✓✓")
+        print("="*70)
+
+    except Exception as e:
+        print(f"\n❌ ERROR: {str(e)}")
+        import traceback
+        traceback.print_exc()
+
 
 
 # ========== REQUERIMIENTO 5 ==========
