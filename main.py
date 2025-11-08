@@ -403,42 +403,36 @@ def ejecutar_req4():
 # ========== REQUERIMIENTO 5 ==========
 def ejecutar_req5():
     """
-    Requerimiento 5: Visualizaciones
+    Requerimiento 5: Visualizaciones y Exportación PDF
     """
     print("\n" + "="*70)
     print("REQUERIMIENTO 5: VISUALIZACIONES Y EXPORTACIÓN")
     print("="*70)
-    
+
     if not state.has_data():
         print("\n❌ ERROR: No hay datos cargados.")
         print("Por favor ejecute el Requerimiento 1 primero.")
         return
-    
-    print(f"\nGenerando visualizaciones para {len(state.df)} artículos...")
-    
-    print("\n[1/4] Generando mapa de calor geográfico...")
-    print("  ✓ Mapa guardado → data/outputs/heatmap.png")
-    
-    print("\n[2/4] Generando nube de palabras...")
-    print("  ✓ Nube guardada → data/outputs/wordcloud.png")
-    
-    print("\n[3/4] Generando línea temporal...")
-    print("  ✓ Timeline guardado → data/outputs/timeline.png")
-    
-    print("\n[4/4] Exportando visualizaciones a PDF...")
-    print("  ✓ PDF generado → data/outputs/visualizations_report.pdf")
-    
-    print("\n" + "="*70)
-    print("✓✓✓ REQUERIMIENTO 5 COMPLETADO ✓✓✓")
-    print("="*70)
-    
-    print("\nVISUALIZACIONES GENERADAS:")
-    print("-"*70)
-    print("  • Mapa de calor: data/outputs/heatmap.png")
-    print("  • Nube de palabras: data/outputs/wordcloud.png")
-    print("  • Línea temporal: data/outputs/timeline.png")
-    print("  • Reporte PDF: data/outputs/visualizations_report.pdf")
-    print("-"*70)
+
+    try:
+        from R5_Visualizaciones import VisualizationAnalyzer
+
+        analyzer = VisualizationAnalyzer()
+        results = analyzer.generate_visualizations(state.df)
+        state.visualization_results = results
+
+        print("\n" + "="*70)
+        print("✓✓✓ REQUERIMIENTO 5 COMPLETADO ✓✓✓")
+        print("="*70)
+        print("\nVisualizaciones generadas:")
+        for key, path in results.items():
+            print(f"  • {key.capitalize()}: {path}")
+
+    except Exception as e:
+        print(f"\n❌ ERROR: {str(e)}")
+        import traceback
+        traceback.print_exc()
+
 
 
 # ========== UTILIDADES ==========
