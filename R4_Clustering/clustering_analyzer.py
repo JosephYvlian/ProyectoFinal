@@ -37,7 +37,7 @@ class ClusteringAnalyzer:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     # ===============================
-    # 1️⃣ PREPROCESAMIENTO DE TEXTO
+    # PREPROCESAMIENTO DE TEXTO
     # ===============================
     def preprocess_texts(self, texts):
         """
@@ -57,7 +57,7 @@ class ClusteringAnalyzer:
         return cleaned
 
     # ===============================
-    # 2️⃣ VECTORIZACIÓN TF-IDF
+    # VECTORIZACIÓN TF-IDF
     # ===============================
     def vectorize_texts(self, texts):
         """
@@ -68,7 +68,7 @@ class ClusteringAnalyzer:
         return X, vectorizer
 
     # ===============================
-    # 3️⃣ CLUSTERING JERÁRQUICO
+    # CLUSTERING JERÁRQUICO
     # ===============================
     def perform_clustering(self, X, titles, method: str) -> Dict:
         """
@@ -119,7 +119,7 @@ class ClusteringAnalyzer:
         }
 
     # ===============================
-    # 4️⃣ PIPELINE COMPLETO
+    # PIPELINE COMPLETO
     # ===============================
     def analyze_clustering(self, df: pd.DataFrame, n_samples: int = 50):
         """

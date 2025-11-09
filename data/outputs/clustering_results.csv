@@ -1,4 +1,4 @@
 method,silhouette,n_clusters,file
 single,0.012,3,data\outputs\dendrogram_single.png
-complete,0.002,3,data\outputs\dendrogram_complete.png
-ward,0.007,3,data\outputs\dendrogram_ward.png
+complete,0.01,3,data\outputs\dendrogram_complete.png
+ward,0.008,3,data\outputs\dendrogram_ward.png

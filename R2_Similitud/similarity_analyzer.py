@@ -251,21 +251,6 @@ class SimilarityAnalyzer:
         
         stats_df = pd.DataFrame(results['statistics']).T
         print(stats_df.round(3).to_string())
-        
-        # Ranking de algoritmos
-        print("\n" + "="*70)
-        print("RANKING (por similitud media)")
-        print("="*70)
-        
-        ranking = sorted(
-            results['statistics'].items(),
-            key=lambda x: x[1]['mean'],
-            reverse=True
-        )
-        
-        for rank, (algo, stats) in enumerate(ranking, 1):
-            algo_type = self.algorithms[algo]['type']
-            print(f"{rank}. {algo:20s} ({algo_type:10s}): {stats['mean']:.3f}")
     
         
     def visualize_results(self, results: Dict, save_path: str = None):

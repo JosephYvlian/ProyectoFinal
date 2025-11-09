@@ -1,55 +1,80 @@
 # ============================================
-# Requirements.txt - Proyecto Bibliométrico
+# Proyecto de Análisis Bibliométrico Automatizado
+# ============================================
+# Entorno compatible: Python 3.10 - 3.11
+# Autor: Universidad del Quindío
+# Descripción: Dependencias completas para los 5 requerimientos del sistema
 # ============================================
 
-# Core científico
-numpy==1.24.3
-pandas==2.0.3
-scipy==1.11.1
 
-# Procesamiento NLP
-nltk==3.8.1
-spacy==3.6.0
-python-Levenshtein==0.21.1
-
-# Machine Learning
-scikit-learn==1.3.0
+# ============================================
+# Núcleo científico y manipulación de datos
+# ============================================
+numpy==1.24.4
+pandas==2.1.1
 scipy==1.11.3
 
-# Deep Learning / IA (para Req 2)
-torch==2.0.1
-transformers==4.31.0
+# ============================================
+# Procesamiento de lenguaje natural (NLP)
+# ============================================
+nltk==3.8.1
+spacy==3.6.1
+python-Levenshtein==0.23.0
+gensim==4.3.2
+textblob==0.17.1
+
+# ============================================
+# Machine Learning y Clustering
+# ============================================
+scikit-learn==1.3.2
 sentence-transformers==2.2.2
+transformers==4.35.0
+torch==2.1.0
 
-# Web Scraping
-playwright==1.40.0  # En lugar de selenium
-beautifulsoup4==4.12.2
+# ============================================
+# Web Scraping y APIs (IEEE / ACM / OpenAlex)
+# ============================================
+playwright==1.41.2
+beautifulsoup4==4.12.3
 requests==2.31.0
+fake-useragent==1.5.1
+lxml==4.9.3
+html5lib==1.1
 
-# Parsers bibliográficos
+# ============================================
+# Lectura y parsing de referencias bibliográficas
+# ============================================
 rispy==4.0.0
-bibtexparser==1.4.0
+bibtexparser==1.4.1
 
-# Visualizaciones
-matplotlib==3.7.2
-seaborn==0.12.2
-plotly==5.16.1
-kaleido==0.2.1  # Para exportar plotly a imágenes
-wordcloud==1.9.2
+# ============================================
+# Visualización científica y reportes
+# ============================================
+matplotlib==3.8.0
+seaborn==0.13.0
+plotly==5.18.0
+kaleido==0.2.1
+wordcloud==1.9.3
 
-# Exportación PDF
-reportlab==4.0.4
+# ============================================
+# Exportación de reportes en PDF y gráficos
+# ============================================
+reportlab==4.0.7
 PyPDF2==3.0.1
 weasyprint==59.0
+pillow==10.1.0
 
-# Geoespacial (para mapas)
-geopandas==0.13.2
-folium==0.14.0
+# ============================================
+# Georreferenciación y análisis espacial
+# ============================================
+geopandas==0.14.2
+folium==0.15.1
+pycountry==23.12.11  # Para conversión de códigos ISO de países
 
-# Configuración
-pyyaml==6.0.1
-
-# Utilidades
-tqdm==4.66.1  # Barras de progreso
-colorlog==6.7.0  # Logging con colores
-python-dotenv==1.0.0  # Variables de entorno
+# ============================================
+# Utilidades del sistema
+# ============================================
+tqdm==4.66.2        # Barras de progreso
+colorlog==6.8.0     # Logging con colores
+python-dotenv==1.0.1 # Variables de entorno
+pyyaml==6.0.1       # Configuración y lectura YAML
