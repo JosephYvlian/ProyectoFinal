@@ -148,7 +148,7 @@ def ejecutar_req2():
     
     # Verificar que hay datos
     if not state.has_data():
-        print("\n❌ ERROR: No hay datos cargados.")
+        print("\nERROR: No hay datos cargados.")
         print("Por favor ejecute el Requerimiento 1 primero.")
         return
     
@@ -161,7 +161,7 @@ def ejecutar_req2():
     ]
     
     if len(df_with_abstract) == 0:
-        print("\n❌ ERROR: No hay artículos con abstract válido.")
+        print("\nERROR: No hay artículos con abstract válido.")
         print("Los datos cargados no tienen abstracts suficientemente largos.")
         return
     
@@ -171,12 +171,12 @@ def ejecutar_req2():
     print("\n" + "-"*70)
     print("ALGORITMOS DISPONIBLES:")
     print("-"*70)
-    print("\n📊 Clásicos:")
+    print("\nClásicos:")
     print("  [1] Levenshtein - Distancia de edición")
     print("  [2] Jaccard - Similitud de conjuntos")
     print("  [3] Cosine + TF-IDF - Vectorización estadística")
     print("  [4] Dice - Coeficiente de Sørensen-Dice")
-    print("\n🤖 Inteligencia Artificial:")
+    print("\nInteligencia Artificial:")
     print("  [5] BERT - Embeddings con Transformers")
     print("  [6] Sentence-BERT - Optimizado para similitud")
     print()
@@ -379,7 +379,7 @@ def ejecutar_req4():
     print("="*70)
 
     if not state.has_data():
-        print("\n❌ ERROR: No hay datos cargados.")
+        print("\nERROR: No hay datos cargados.")
         print("Por favor ejecute el Requerimiento 1 primero.")
         return
 
@@ -410,7 +410,7 @@ def ejecutar_req5():
     print("="*70)
 
     if not state.has_data():
-        print("\n❌ ERROR: No hay datos cargados.")
+        print("\nERROR: No hay datos cargados.")
         print("Por favor ejecute el Requerimiento 1 primero.")
         return
 
@@ -429,7 +429,7 @@ def ejecutar_req5():
             print(f"  • {key.capitalize()}: {path}")
 
     except Exception as e:
-        print(f"\n❌ ERROR: {str(e)}")
+        print(f"\nERROR: {str(e)}")
         import traceback
         traceback.print_exc()
 
@@ -539,14 +539,14 @@ def main():
                 break
                 
             else:
-                print("\n❌ Opción inválida. Intente nuevamente.")
+                print("\nOpción inválida. Intente nuevamente.")
                 pause()
                 
         except KeyboardInterrupt:
             print("\n\nPrograma interrumpido por el usuario.")
             sys.exit(0)
         except Exception as e:
-            print(f"\n❌ ERROR INESPERADO: {str(e)}")
+            print(f"\nERROR INESPERADO: {str(e)}")
             logger.error(f"Error: {e}")
             pause()
 
