@@ -24,7 +24,7 @@ try:
     PLOTLY_AVAILABLE = True
 except ImportError:
     PLOTLY_AVAILABLE = False
-    print("⚠️  Plotly no disponible. Instala con: pip install plotly kaleido")
+    print("Plotly no disponible. Instala con: pip install plotly kaleido")
 
 
 class VisualizationAnalyzer:
@@ -140,7 +140,7 @@ class VisualizationAnalyzer:
                 return None
 
             except Exception as e:
-                print(f"⚠️  No se pudo obtener país para DOI {doi}: {e}")
+                print(f"No se pudo obtener país para DOI {doi}: {e}")
                 cache[doi] = None
                 return None
 
